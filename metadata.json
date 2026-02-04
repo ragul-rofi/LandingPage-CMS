@@ -1,0 +1,7 @@
+{
+  "name": "NotinQ - Canteen Management Redefined",
+  "description": "A modern, high-performance landing page for NotinQ, a canteen management system that eliminates physical queues through digital ordering and smart logistics.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
