@@ -28,8 +28,8 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="https://your-app-url.com/login" target="_blank" rel="noopener noreferrer" className="hidden sm:block text-sm font-bold text-slate-700 hover:text-orange-500 transition-colors">Login</a>
-            <a href="https://your-app-url.com/login" target="_blank" rel="noopener noreferrer" className="sm:hidden bg-slate-900 text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-orange-600 transition-all hover:shadow-lg hover:-translate-y-0.5">
+            <a href="https://cms-puce-eight.vercel.app/login" target="_blank" rel="noopener noreferrer" className="hidden sm:block text-sm font-bold text-slate-700 hover:text-orange-500 transition-colors">Login</a>
+            <a href="https://cms-puce-eight.vercel.app/login" target="_blank" rel="noopener noreferrer" className="sm:hidden bg-slate-900 text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-orange-600 transition-all hover:shadow-lg hover:-translate-y-0.5">
               Login
             </a>
             <a href="#contact" onClick={(e) => smoothScroll(e, '#contact')} className="hidden sm:block bg-slate-900 text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-orange-600 transition-all hover:shadow-lg hover:-translate-y-0.5">
