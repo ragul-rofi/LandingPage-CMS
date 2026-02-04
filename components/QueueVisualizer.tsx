@@ -36,7 +36,7 @@ const QueueVisualizer: React.FC = () => {
         Live NotinQ Board
       </h3>
       <div className="space-y-3">
-        {items.map((item, idx) => (
+        {items.map((item) => (
           <div 
             key={item.id}
             className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-500 transform ${
