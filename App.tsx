@@ -20,32 +20,37 @@ const App: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
+      // Using FormData for better Formspree compatibility
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', `${formData.countryCode} ${formData.phone}`);
+      formDataToSend.append('message', formData.message);
+      formDataToSend.append('_replyto', formData.email);
+      formDataToSend.append('_subject', `New NotinQ Demo Request from ${formData.name}`);
+
       const response = await fetch('https://formspree.io/f/mqeljqeg', {
         method: 'POST',
+        body: formDataToSend,
         headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: `${formData.countryCode} ${formData.phone}`,
-          message: formData.message,
-          _replyto: formData.email,
-          _subject: `New NotinQ Demo Request from ${formData.name}`
-        })
+          'Accept': 'application/json'
+        }
       });
-      
+
       if (response.ok) {
         setSubmitted(true);
         setFormData({ name: '', email: '', countryCode: '+91', phone: '', message: '' });
       } else {
-        alert('Failed to send message. Please try again.');
+        const data = await response.json();
+        console.error('Formspree error:', data);
+        alert('Failed to send message. Please try again or contact us directly.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Failed to send message. Please try again.');
+      // Show a more helpful error message
+      alert('Unable to send message at this time. Please try again later or contact us directly via email.');
     } finally {
       setIsSubmitting(false);
     }
@@ -132,21 +137,21 @@ const App: React.FC = () => {
         <section id="story" className="py-24 sm:py-32 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-20">
-                <span className="text-orange-500 font-bold uppercase tracking-widest text-sm">The Story</span>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-2">Why we built NotinQ</h2>
+              <span className="text-orange-500 font-bold uppercase tracking-widest text-sm">The Story</span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-2">Why we built NotinQ</h2>
             </div>
-            
+
             <div className="space-y-32">
               {STORY_STEPS.map((step, idx) => (
                 <div key={step.id} className={`flex flex-col ${step.direction === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 items-center`}>
                   <div className="flex-1">
                     <div className="relative">
-                        <div className={`absolute inset-0 bg-gradient-to-br ${idx % 2 === 0 ? 'from-orange-500/20 to-transparent' : 'from-blue-500/20 to-transparent'} rounded-3xl -rotate-3`}></div>
-                        <img 
-                          src={step.image} 
-                          alt={step.title}
-                          className="relative rounded-3xl shadow-2xl object-cover aspect-video w-full hover:scale-[1.02] transition-transform duration-700"
-                        />
+                      <div className={`absolute inset-0 bg-gradient-to-br ${idx % 2 === 0 ? 'from-orange-500/20 to-transparent' : 'from-blue-500/20 to-transparent'} rounded-3xl -rotate-3`}></div>
+                      <img
+                        src={step.image}
+                        alt={step.title}
+                        className="relative rounded-3xl shadow-2xl object-cover aspect-video w-full hover:scale-[1.02] transition-transform duration-700"
+                      />
                     </div>
                   </div>
                   <div className="flex-1 space-y-6 text-center lg:text-left">
@@ -167,7 +172,7 @@ const App: React.FC = () => {
           <div className="absolute bottom-0 right-0 opacity-10 pointer-events-none">
             <i className="fas fa-utensils text-[400px]"></i>
           </div>
-          
+
           <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-4xl sm:text-5xl font-black mb-4">Get Connected</h2>
@@ -181,11 +186,11 @@ const App: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Message Received!</h3>
                 <p className="text-slate-300">Our team will reach out to you shortly. Get ready for a queue-free future.</p>
-                <button 
-                    onClick={() => setSubmitted(false)}
-                    className="mt-8 text-orange-400 font-bold hover:underline"
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="mt-8 text-orange-400 font-bold hover:underline"
                 >
-                    Send another message
+                  Send another message
                 </button>
               </div>
             ) : (
@@ -193,22 +198,22 @@ const App: React.FC = () => {
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-bold text-slate-300 mb-2 uppercase tracking-wide">Full Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       required
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="John Doe"
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent backdrop-blur-md"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-slate-300 mb-2 uppercase tracking-wide">Work Email</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="john@canteen.com"
                       className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent backdrop-blur-md"
                     />
@@ -219,7 +224,7 @@ const App: React.FC = () => {
                   <div className="flex gap-3">
                     <select
                       value={formData.countryCode}
-                      onChange={(e) => setFormData({...formData, countryCode: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
                       className="bg-white/5 border border-white/10 rounded-2xl px-4 py-4 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent backdrop-blur-md w-32"
                     >
                       <option value="+91" className="bg-slate-800">🇮🇳 +91</option>
@@ -233,13 +238,13 @@ const App: React.FC = () => {
                       <option value="+971" className="bg-slate-800">🇦🇪 +971</option>
                       <option value="+65" className="bg-slate-800">🇸🇬 +65</option>
                     </select>
-                    <input 
-                      type="tel" 
+                    <input
+                      type="tel"
                       required
                       value={formData.phone}
                       onChange={(e) => {
                         const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-                        setFormData({...formData, phone: value});
+                        setFormData({ ...formData, phone: value });
                       }}
                       placeholder="9876543210"
                       maxLength={10}
@@ -250,16 +255,16 @@ const App: React.FC = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-slate-300 mb-2 uppercase tracking-wide">Tell us about your canteen</label>
-                  <textarea 
+                  <textarea
                     rows={4}
                     value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Approx number of users, current pain points..."
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent backdrop-blur-md"
                   ></textarea>
                 </div>
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={isSubmitting}
                   className="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-5 rounded-2xl text-xl transition-all hover:shadow-2xl shadow-orange-500/20 disabled:opacity-50"
                 >

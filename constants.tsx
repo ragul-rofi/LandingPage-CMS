@@ -1,6 +1,7 @@
 
 import { Feature, StoryStep } from './types';
 
+
 export const FEATURES: Feature[] = [
   {
     id: 'qr-ordering',
