@@ -1,0 +1,5 @@
+{
+    "buildCommand": "cd LandingPage-CMS && npm run build",
+    "outputDirectory": "LandingPage-CMS/dist",
+    "installCommand": "cd LandingPage-CMS && npm install"
+}

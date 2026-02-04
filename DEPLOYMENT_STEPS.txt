@@ -1,0 +1,124 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║          🚀 NOTINQ LANDING PAGE - DEPLOYMENT STEPS 🚀           ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────┐
+│ STEP 1: UPDATE LOGIN URL (REQUIRED!)                            │
+└──────────────────────────────────────────────────────────────────┘
+
+  📝 Open: components/Navbar.tsx
+  
+  🔍 Find: your-app-url.com
+  
+  ✏️  Replace with: your-actual-hosted-domain.com
+  
+  💡 Tip: Use Ctrl+Shift+F to find & replace all (2 occurrences)
+
+
+┌──────────────────────────────────────────────────────────────────┐
+│ STEP 2: TEST LOCALLY                                            │
+└──────────────────────────────────────────────────────────────────┘
+
+  $ npm install
+  $ npm run dev
+  
+  ✅ Visit: http://localhost:5174
+  ✅ Click "Login" button
+  ✅ Verify redirect works
+
+
+┌──────────────────────────────────────────────────────────────────┐
+│ STEP 3: PUSH TO GITHUB                                          │
+└──────────────────────────────────────────────────────────────────┘
+
+  1. Create repo on GitHub.com
+  
+  2. Run these commands:
+  
+     $ git add .
+     $ git commit -m "Initial commit: NotinQ Landing Page"
+     $ git remote add origin https://github.com/USERNAME/REPO.git
+     $ git push -u origin main
+
+
+┌──────────────────────────────────────────────────────────────────┐
+│ STEP 4: DEPLOY (CHOOSE ONE)                                     │
+└──────────────────────────────────────────────────────────────────┘
+
+  ⭐ VERCEL (RECOMMENDED)
+  ────────────────────────
+  1. Go to vercel.com
+  2. Sign in with GitHub
+  3. Click "Import Project"
+  4. Select your repo
+  5. Click "Deploy"
+  6. Done in 30 seconds! 🎉
+  
+  
+  🌐 NETLIFY
+  ──────────
+  1. Go to netlify.com
+  2. Sign in with GitHub
+  3. "Add new site" → "Import"
+  4. Select repo
+  5. Build: npm run build
+  6. Publish: dist
+  7. Deploy!
+  
+  
+  📄 GITHUB PAGES
+  ───────────────
+  $ npm install --save-dev gh-pages
+  
+  Add to package.json:
+    "homepage": "https://username.github.io/repo-name",
+    "scripts": {
+      "deploy": "gh-pages -d dist"
+    }
+  
+  $ npm run deploy
+
+
+┌──────────────────────────────────────────────────────────────────┐
+│ STEP 5: TEST LIVE SITE                                          │
+└──────────────────────────────────────────────────────────────────┘
+
+  ✅ Visit your deployed URL
+  ✅ Click "Login" → Should redirect to your app
+  ✅ Submit contact form
+  ✅ Test on mobile
+  ✅ Check different browsers
+
+
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║                    📚 NEED MORE HELP?                           ║
+║                                                                  ║
+║  👉 START_HERE.md       - Complete walkthrough                  ║
+║  👉 DEPLOYMENT.md       - Detailed platform guides              ║
+║  👉 QUICK_REFERENCE.md  - Command cheat sheet                   ║
+║  👉 GITHUB_SETUP.md     - Git commands                          ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║                  🎯 RECOMMENDED: VERCEL                         ║
+║                                                                  ║
+║  • Fastest setup (1 minute)                                     ║
+║  • Zero configuration                                           ║
+║  • Auto-deploy from GitHub                                      ║
+║  • Free SSL + CDN                                               ║
+║  • Perfect for React + Vite                                     ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+
+═══════════════════════════════════════════════════════════════════
+
+  🎉 YOU'RE ALL SET! FOLLOW THE STEPS ABOVE TO GO LIVE! 🎉
+
+═══════════════════════════════════════════════════════════════════
